@@ -4,13 +4,17 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    // get one product
+    itemOperations: ['get'],
+    // get a list of products
+    collectionOperations: ['get'],
+    attributes: ["pagination_items_per_page" => 10]
+)]
 class Product
 {
     #[ORM\Id]
@@ -22,7 +26,7 @@ class Product
     private string $name;
 
     #[ORM\Column(type: 'text')]
-    private text $description;
+    private string $description;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $image;
@@ -40,15 +44,7 @@ class Product
     private float $priceATI;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private DateTimeImmutable $addedAt;
-
-    #[ORM\ManyToMany(targetEntity: Client::class, inversedBy: 'products')]
-    private Collection $clients;
-
-    public function __construct()
-    {
-        $this->clients = new ArrayCollection();
-    }
+    private \DateTimeImmutable $addedAt;
 
     public function getId(): ?int
     {
@@ -147,30 +143,6 @@ class Product
     public function setAddedAt(\DateTimeImmutable $addedAt): self
     {
         $this->addedAt = $addedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Client>
-     */
-    public function getClients(): Collection
-    {
-        return $this->clients;
-    }
-
-    public function addClient(Client $client): self
-    {
-        if (!$this->clients->contains($client)) {
-            $this->clients[] = $client;
-        }
-
-        return $this;
-    }
-
-    public function removeClient(Client $client): self
-    {
-        $this->clients->removeElement($client);
 
         return $this;
     }
