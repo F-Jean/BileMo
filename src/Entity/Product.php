@@ -8,7 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    // get one product
+    itemOperations: ['get'],
+    // get a list of products
+    collectionOperations: ['get']
+)]
 class Product
 {
     #[ORM\Id]
