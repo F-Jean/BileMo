@@ -12,7 +12,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
     // get one product
     itemOperations: ['get'],
     // get a list of products
-    collectionOperations: ['get']
+    collectionOperations: ['get'],
+    attributes: ["pagination_items_per_page" => 10]
 )]
 class Product
 {
