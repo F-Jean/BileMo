@@ -27,6 +27,7 @@
         "symfony/runtime": "6.0.*",
         "symfony/security-bundle": "6.0.*",
         "symfony/serializer": "6.0.*",
+        "symfony/string": "6.0.*",
         "symfony/twig-bundle": "6.0.*",
         "symfony/uid": "6.0.*",
         "symfony/validator": "6.0.*",
@@ -72,6 +73,12 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "database": [
+            "php bin/console doctrine:database:drop --if-exists -f",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:schema:update -f",
+            "php bin/console doctrine:fixtures:load -n"
         ]
     },
     "conflict": {
@@ -84,6 +91,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpmd/phpmd": "@stable",
         "phpstan/phpstan": "^1.5",
         "squizlabs/php_codesniffer": "3.*",
