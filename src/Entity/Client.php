@@ -30,6 +30,9 @@ class Client
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $registeredAt;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $password;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,18 @@ class Client
     public function setRegisteredAt(\DateTimeImmutable $registeredAt): self
     {
         $this->registeredAt = $registeredAt;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }
