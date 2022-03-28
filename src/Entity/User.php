@@ -7,7 +7,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource]
+//#[ApiResource]
 class User
 {
     #[ORM\Id]
@@ -29,6 +29,9 @@ class User
 
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $registeredAt;
+
+    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'users')]
+    private $clients;
 
     public function getId(): ?int
     {
@@ -91,6 +94,18 @@ class User
     public function setRegisteredAt(\DateTimeImmutable $registeredAt): self
     {
         $this->registeredAt = $registeredAt;
+
+        return $this;
+    }
+
+    public function getClients(): ?Client
+    {
+        return $this->clients;
+    }
+
+    public function setClients(?Client $clients): self
+    {
+        $this->clients = $clients;
 
         return $this;
     }

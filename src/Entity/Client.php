@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-#[ApiResource]
 class Client
 {
     #[ORM\Id]
@@ -30,9 +29,6 @@ class Client
 
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $registeredAt;
-
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'clients')]
-    private User $users;
 
     public function getId(): ?int
     {
@@ -95,18 +91,6 @@ class Client
     public function setRegisteredAt(\DateTimeImmutable $registeredAt): self
     {
         $this->registeredAt = $registeredAt;
-
-        return $this;
-    }
-
-    public function getUsers(): ?User
-    {
-        return $this->users;
-    }
-
-    public function setUsers(?User $users): self
-    {
-        $this->users = $users;
 
         return $this;
     }

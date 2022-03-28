@@ -31,9 +31,6 @@ class Product
     #[ORM\Column(type: 'string', length: 255)]
     private string $image;
 
-    #[UploadedFile]
-    private UploadedFile $imageFile;
-
     #[ORM\Column(type: 'string', length: 255)]
     private string $slug;
 
