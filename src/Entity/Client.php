@@ -5,10 +5,11 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-class Client
+class Client implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,17 +22,18 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private string $email;
 
-    #[ORM\Column(type: 'uuid', length: 255)]
-    private uuid $token;
-
+    // status to check if still a client or not
     #[ORM\Column(type: 'boolean')]
     private bool $enabled;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private DateTimeImmutable $registeredAt;
+    private \DateTimeImmutable $registeredAt;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $password;
+    private string $password;
+
+    #[ORM\Column(type: 'array')]
+    private array $roles;
 
     public function getId(): ?int
     {
@@ -58,18 +60,6 @@ class Client
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getToken(): ?uuid
-    {
-        return $this->token;
-    }
-
-    public function setToken(uuid $token): self
-    {
-        $this->token = $token;
 
         return $this;
     }
@@ -108,5 +98,35 @@ class Client
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
     }
 }
