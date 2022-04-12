@@ -5,11 +5,11 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-#[ApiResource]
-class Client
+class Client implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,17 +22,16 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private string $email;
 
-    #[ORM\Column(type: 'uuid', length: 255)]
-    private uuid $token;
-
+    // status to check if still a client or not
     #[ORM\Column(type: 'boolean')]
     private bool $enabled;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private DateTimeImmutable $registeredAt;
+    private \DateTimeImmutable $registeredAt;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'clients')]
-    private User $users;
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $password;
+
 
     public function getId(): ?int
     {
@@ -63,18 +62,6 @@ class Client
         return $this;
     }
 
-    public function getToken(): ?uuid
-    {
-        return $this->token;
-    }
-
-    public function setToken(uuid $token): self
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
     public function getEnabled(): ?bool
     {
         return $this->enabled;
@@ -99,15 +86,41 @@ class Client
         return $this;
     }
 
-    public function getUsers(): ?User
+    public function getPassword(): ?string
     {
-        return $this->users;
+        return $this->password;
     }
 
-    public function setUsers(?User $users): self
+    public function setPassword(string $password): self
     {
-        $this->users = $users;
+        $this->password = $password;
 
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
     }
 }

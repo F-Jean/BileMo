@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
+        "lexik/jwt-authentication-bundle": "^2.14",
         "nelmio/cors-bundle": "^2.2",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.2",
@@ -21,6 +22,7 @@
         "symfony/expression-language": "6.0.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.0.*",
+        "symfony/password-hasher": "6.0.*",
         "symfony/property-access": "6.0.*",
         "symfony/property-info": "6.0.*",
         "symfony/proxy-manager-bridge": "6.0.*",
@@ -95,6 +97,8 @@
         "phpmd/phpmd": "@stable",
         "phpstan/phpstan": "^1.5",
         "squizlabs/php_codesniffer": "3.*",
-        "symfony/maker-bundle": "^1.38"
+        "symfony/maker-bundle": "^1.38",
+        "symfony/stopwatch": "6.0.*",
+        "symfony/web-profiler-bundle": "6.0.*"
     }
 }
