@@ -28,10 +28,10 @@ class User
     private string $creditCard;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private DateTimeImmutable $registeredAt;
+    private \DateTimeImmutable $registeredAt;
 
     #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'users')]
-    private $clients;
+    private $client;
 
     public function getId(): ?int
     {
@@ -98,14 +98,14 @@ class User
         return $this;
     }
 
-    public function getClients(): ?Client
+    public function getclient(): ?Client
     {
-        return $this->clients;
+        return $this->client;
     }
 
-    public function setClients(?Client $clients): self
+    public function setclient(?Client $client): self
     {
-        $this->clients = $clients;
+        $this->client = $client;
 
         return $this;
     }

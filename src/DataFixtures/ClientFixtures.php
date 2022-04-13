@@ -10,6 +10,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ClientFixtures extends Fixture
 {
     private $passwordHasher;
+    public const CLIENT_REFERENCE = 'client';
+    public const CLIENTS_REFERENCE = 'clients';
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
@@ -18,6 +20,8 @@ class ClientFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $clients = [];
+
         for($i = 1; $i <= 5; $i++){
             $client = new Client();
             $client->setName("Client $i")
@@ -27,8 +31,12 @@ class ClientFixtures extends Fixture
             ->setPassword($this->passwordHasher->hashPassword($client, 'password'));
 
             $manager->persist($client);
+            array_push($clients, $client);
         }
 
         $manager->flush();
+
+        $this->addReference(self::CLIENT_REFERENCE, $client);
+        $this->addReference(self::CLIENTS_REFERENCE, $clients);
     }
 }
