@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
+use App\Entity\Client;
 use App\DataFixtures\ClientFixtures;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
@@ -12,7 +13,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        foreach($this->getReference(ClientFixtures::CLIENTS_REFERENCE) as $client)
+        $clients = $manager->getRepository(Client::class)->findAll();
+        foreach($clients as $client)
         {
             for($u = 1; $u <= 20; $u++){
                 $user = new User();
@@ -21,7 +23,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setAdress("Adress $u")
                 ->setCreditCard("Card number $u")
                 ->setRegisteredAt(new \DateTimeImmutable())
-                ->setClient($this->getReference(ClientFixtures::CLIENT_REFERENCE));
+                ->setClient($client);
     
                 $manager->persist($user);
             }

@@ -30,7 +30,7 @@ class User
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeImmutable $registeredAt;
 
-    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'users')]
+    #[ORM\ManyToOne(targetEntity: Client::class)]
     private $client;
 
     public function getId(): ?int
