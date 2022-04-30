@@ -7,7 +7,10 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: ['get'],
+    attributes: ["pagination_items_per_page" => 10]
+)]
 class User
 {
     #[ORM\Id]
