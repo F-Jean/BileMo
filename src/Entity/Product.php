@@ -84,18 +84,6 @@ class Product
         return $this;
     }
 
-    public function getImageFile(): ?UploadedFile
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageFile(UploadedFile $imageFile): self
-    {
-        $this->imageFile = $imageFile;
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;

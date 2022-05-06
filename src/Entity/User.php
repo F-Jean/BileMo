@@ -5,33 +5,71 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:Users']]
+        ],
+        'post' => [
+            'denormalization_context' => ['groups' => ['post:Users']]
+        ],
+    ],
+    attributes: [
+        'pagination_items_per_page' => 10
+    ],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:User']],
+            'security' => 'object.getclient(user)'
+        ],
+        'put' => [
+            'denormalization_context' => ['groups' => ['mod:User']],
+            'security' => 'object.getclient(user)'
+        ],
+        'delete' => [
+            'security' => 'object.getclient(user)'
+        ]
+    ],
+)]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-//#[ApiResource]
 class User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
     private string $name;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
     private string $lastname;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
     private string $adress;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
     private string $creditCard;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private DateTimeImmutable $registeredAt;
+    #[Assert\NotBlank]
+    #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
+    private \DateTimeImmutable $registeredAt;
 
-    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'users')]
-    private $clients;
+    #[ORM\ManyToOne(targetEntity: Client::class)]
+    private $client;
 
     public function getId(): ?int
     {
@@ -98,14 +136,14 @@ class User
         return $this;
     }
 
-    public function getClients(): ?Client
+    public function getclient(): ?Client
     {
-        return $this->clients;
+        return $this->client;
     }
 
-    public function setClients(?Client $clients): self
+    public function setclient(?Client $client): self
     {
-        $this->clients = $clients;
+        $this->client = $client;
 
         return $this;
     }

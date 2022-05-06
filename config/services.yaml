@@ -25,3 +25,11 @@ services:
     App\OpenApi\JwtDecorator:
         decorates: "api_platform.openapi.factory"
         arguments: ["@.inner"]
+
+    # configuration decoration for UserDataPersister
+    App\DataPersister\UserDataPersister:
+        bind:
+            $decorated: "@api_platform.doctrine.orm.data_persister"
+        # Uncomment only if autoconfiguration is disabled
+        #arguments: ['@App\DataPersister\UserDataPersister.inner']
+        #tags: [ 'api_platform.data_persister' ]
