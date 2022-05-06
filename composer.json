@@ -94,10 +94,16 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "justinrainbow/json-schema": "^5.2",
         "phpmd/phpmd": "@stable",
         "phpstan/phpstan": "^1.5",
+        "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "3.*",
+        "symfony/browser-kit": "6.0.*",
+        "symfony/css-selector": "6.0.*",
+        "symfony/http-client": "6.0.*",
         "symfony/maker-bundle": "^1.38",
+        "symfony/phpunit-bridge": "^6.0",
         "symfony/stopwatch": "6.0.*",
         "symfony/web-profiler-bundle": "6.0.*"
     }
