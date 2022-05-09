@@ -81,6 +81,12 @@
             "php bin/console doctrine:database:create",
             "php bin/console doctrine:schema:update -f",
             "php bin/console doctrine:fixtures:load -n"
+        ],
+        "database-test": [
+            "php bin/console doctrine:database:drop --if-exists -f --env=test",
+            "php bin/console doctrine:database:create --env=test",
+            "php bin/console doctrine:schema:update -f --env=test",
+            "php bin/console doctrine:fixtures:load -n --env=test"
         ]
     },
     "conflict": {
@@ -94,6 +100,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "hautelook/alice-bundle": "^2.10",
         "justinrainbow/json-schema": "^5.2",
         "phpmd/phpmd": "@stable",
         "phpstan/phpstan": "^1.5",
