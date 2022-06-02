@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
@@ -39,12 +40,15 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Assert\NotBlank]
     #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 3,
+        minMessage: "Votre nom d'utilisateur doit contenir au minimum {{ limit }} lettres.",
+    )]
     #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
     private string $name;
 
@@ -58,13 +62,19 @@ class User
     #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
     private string $adress;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 16,
+        max: 16,
+        minMessage: "Le numéro de votre carte est composé de {{ limit }} chiffres.",
+        maxMessage: "Le numéro de votre carte est composé de {{ limit }} chiffres.",
+    )]
     #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
     private string $creditCard;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\NotBlank]
+    #[Assert\NotNull]
     #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
     private \DateTimeImmutable $registeredAt;
 
