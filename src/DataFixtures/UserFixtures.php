@@ -14,16 +14,17 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $clients = $manager->getRepository(Client::class)->findAll();
-        foreach ($clients as $client) {
-            for ($u = 1; $u <= 20; $u++) {
+        foreach($clients as $client)
+        {
+            for($u = 1; $u <= 20; $u++){
                 $user = new User();
                 $user->setName("User $u")
-                    ->setLastname("Lastname $u")
-                    ->setAdress("Adress $u")
-                    ->setCreditCard("5412597435621548")
-                    ->setRegisteredAt(new \DateTimeImmutable('2022-01-01T10:00:00+00:00'))
-                    ->setClient($client);
-
+                ->setLastname("Lastname $u")
+                ->setAdress("Adress $u")
+                ->setCreditCard("Card number $u")
+                ->setRegisteredAt(new \DateTimeImmutable())
+                ->setClient($client);
+    
                 $manager->persist($user);
             }
         }
