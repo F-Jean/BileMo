@@ -20,7 +20,7 @@ final class UserDataPersister implements ContextAwareDataPersisterInterface
     public function persist($data, array $context = [])
     {
         $data->setClient($this->security->getUser());
-      
+
         $result = $this->decorated->persist($data, $context);
 
         return $result;
