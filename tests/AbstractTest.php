@@ -19,7 +19,6 @@ abstract class AbstractTest extends ApiTestCase
     protected function getToken($body = []): string
     {
         if ($this->token) {
-
             return $this->token;
         }
 

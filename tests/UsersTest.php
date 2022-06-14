@@ -7,7 +7,6 @@ use App\Repository\UserRepository;
 
 final class UsersTest extends AbstractTest
 {
-
     public function testGetCollection(): void
     {
         $response = $this->createClientWithCredentials()->request('GET', '/api/users');

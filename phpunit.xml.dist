@@ -28,6 +28,10 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory >src/DataFixtures</directory>
+            <directory >src/OpenApi</directory>
+        </exclude>
     </coverage>
 
     <listeners>

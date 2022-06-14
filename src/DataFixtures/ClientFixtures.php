@@ -18,7 +18,7 @@ class ClientFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for($i = 1; $i <= 5; $i++){
+        for ($i = 1; $i <= 5; $i++) {
             $client = new Client();
             $client->setName("Client $i")
             ->setEmail("$i@b2b.com")
