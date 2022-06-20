@@ -13,7 +13,10 @@ abstract class AbstractTest extends ApiTestCase
     {
         $token = $token ?: $this->getToken();
 
-        return static::createClient([], ['headers' => ['authorization' => 'Bearer ' . $token, 'accept' => 'application/json']]);
+        return static::createClient(
+            [],
+            ['headers' => ['authorization' => 'Bearer ' . $token, 'accept' => 'application/json']]
+        );
     }
 
     protected function getToken($body = []): string
