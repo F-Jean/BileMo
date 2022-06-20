@@ -1,6 +1,6 @@
 # BileMo
 
-## Contexte :
+## Contexte
 
 BileMo est une entreprise offrant toute une sélection de téléphones mobiles haut de gamme.
 Pas de vente directe de produits sur le site web, elle souhaite fournir à toutes les plateformes qui le souhaitent l’accès au catalogue via une API.
@@ -41,7 +41,7 @@ Installer les fixtures et mettre à jour la base de données
 composer database
 ```
 
-## Démarer le serveur et aller sur le site :
+## Démarer le serveur et aller sur le site
 
 ```
 symfony server:start -d
