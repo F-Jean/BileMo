@@ -34,8 +34,9 @@ final class UsersTest extends AbstractTest
             'id' => 15,
             'name' => 'User 15',
             'lastname' => 'Lastname 15',
-            'adress' => 'Adress 15',
-            'creditCard' => '5412597435621548',
+            'address' => 'Address 15',
+            'city' => 'Paris',
+            'zipCode' => 75000,
             'registeredAt' => '2022-01-01T10:00:00+00:00'
         ]);
 
@@ -47,8 +48,9 @@ final class UsersTest extends AbstractTest
         $response = $this->createClientWithCredentials()->request('POST', '/api/users', ['json' => [
             'name' => 'new user',
             'lastname' => 'new user',
-            'adress' => 'new user adress',
-            'creditCard' => '5789654812455414',
+            'address' => 'new user address',
+            'city' => 'Pau',
+            'zipCode' => 64000,
             'registeredAt' => '2022-01-01T10:00:00+00:00',
         ]]);
 
@@ -57,8 +59,9 @@ final class UsersTest extends AbstractTest
         $this->assertJsonContains([
             'name' => 'new user',
             'lastname' => 'new user',
-            'adress' => 'new user adress',
-            'creditCard' => '5789654812455414',
+            'address' => 'new user address',
+            'city' => 'Pau',
+            'zipCode' => 64000,
             'registeredAt' => '2022-01-01T10:00:00+00:00',
         ]);
         $this->assertMatchesRegularExpression('~^\d+$~', $response->toArray()['id']);
@@ -70,8 +73,9 @@ final class UsersTest extends AbstractTest
         $this->createClientWithCredentials()->request('POST', '/api/users', ['json' => [
             'name' => 'ap',
             'lastname' => 'UserWithInvalidName',
-            'adress' => 'UserWithInvalidName',
-            'creditCard' => '5789654812455414',
+            'address' => 'UserWithInvalidName',
+            'city' => 'Paris',
+            'zipCode' => 75000,
             'registeredAt' => '2022-01-01T10:00:00+00:00',
         ]]);
 
@@ -88,8 +92,9 @@ final class UsersTest extends AbstractTest
         $this->createClientWithCredentials()->request('POST', '/api/users', ['json' => [
             'name' => 'UserWithInvalidLastname',
             'lastname' => '',
-            'adress' => 'UserWithInvalidLastname',
-            'creditCard' => '5789654812455414',
+            'address' => 'UserWithInvalidLastname',
+            'city' => 'Paris',
+            'zipCode' => 75000,
             'registeredAt' => '2022-01-01T10:00:00+00:00',
         ]]);
 
@@ -101,13 +106,14 @@ final class UsersTest extends AbstractTest
         ]);
     }
 
-    public function testCreateUserWithInvalidAdress(): void
+    public function testCreateUserWithInvalidaddress(): void
     {
         $this->createClientWithCredentials()->request('POST', '/api/users', ['json' => [
-            'name' => 'UserWithInvalidAdress',
-            'lastname' => 'UserWithInvalidAdress',
-            'adress' => '',
-            'creditCard' => '5789654812455414',
+            'name' => 'UserWithInvalidaddress',
+            'lastname' => 'UserWithInvalidaddress',
+            'address' => '',
+            'city' => 'Paris',
+            'zipCode' => 75000,
             'registeredAt' => '2022-01-01T10:00:00+00:00',
         ]]);
 
@@ -115,25 +121,7 @@ final class UsersTest extends AbstractTest
         $this->assertResponseHeaderSame('content-type', 'application/problem+json; charset=utf-8');
         $this->assertJsonContains([
             'title' => 'An error occurred',
-            'detail' => "adress: This value should not be blank."
-        ]);
-    }
-
-    public function testCreateUserWithInvalidCreditCard(): void
-    {
-        $this->createClientWithCredentials()->request('POST', '/api/users', ['json' => [
-            'name' => 'UserWithInvalidCreditCard',
-            'lastname' => 'UserWithInvalidCreditCard',
-            'adress' => 'UserWithInvalidCreditCard',
-            'creditCard' => '5789654812455414541545484',
-            'registeredAt' => '2022-01-01T10:00:00+00:00',
-        ]]);
-
-        $this->assertResponseStatusCodeSame(422);
-        $this->assertResponseHeaderSame('content-type', 'application/problem+json; charset=utf-8');
-        $this->assertJsonContains([
-            'title' => 'An error occurred',
-            'detail' => "creditCard: This value should have exactly 16 characters."
+            'detail' => "address: This value should not be blank."
         ]);
     }
 
@@ -142,8 +130,9 @@ final class UsersTest extends AbstractTest
         $this->createClientWithCredentials()->request('POST', '/api/users', ['json' => [
             'name' => 'UserWithInvalidTimeStamp',
             'lastname' => 'UserWithInvalidTimeStamp',
-            'adress' => 'UserWithInvalidTimeStamp',
-            'creditCard' => '5789654812455414',
+            'address' => 'UserWithInvalidTimeStamp',
+            'city' => 'Paris',
+            'zipCode' => 75000,
             'registeredAt' => '2022-01-:00:00+00:00',
         ]]);
 
@@ -160,8 +149,9 @@ final class UsersTest extends AbstractTest
         $this->createClientWithCredentials()->request('POST', '/api/users', ['json' => [
             'name' => 'UserWithInvalidTimeStamp',
             'lastname' => 'UserWithInvalidTimeStamp',
-            'adress' => 'UserWithInvalidTimeStamp',
-            'creditCard' => '5789654812455414',
+            'address' => 'UserWithInvalidTimeStamp',
+            'city' => 'Paris',
+            'zipCode' => 75000,
             'registeredAt' => '',
         ]]);
 
@@ -182,8 +172,9 @@ final class UsersTest extends AbstractTest
         $client->request('PUT', $iri, ['json' => [
             'name' => 'User 8',
             'lastname' => 'Lastname 8',
-            'adress' => 'Adress 8',
-            'creditCard' => '4552369812150756',
+            'address' => 'address 8',
+            'city' => 'Bordeaux',
+            'zipCode' => 33000,
             'registeredAt' => '2022-04-22T01:38:21+00:00'
         ]]);
 
@@ -191,8 +182,9 @@ final class UsersTest extends AbstractTest
         $this->assertJsonContains([
             'name' => 'User 8',
             'lastname' => 'Lastname 8',
-            'adress' => 'Adress 8',
-            'creditCard' => '4552369812150756',
+            'address' => 'address 8',
+            'city' => 'Bordeaux',
+            'zipCode' => 33000,
             'registeredAt' => '2022-04-22T01:38:21+00:00'
         ]);
     }

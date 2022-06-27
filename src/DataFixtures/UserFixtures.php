@@ -19,8 +19,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $user = new User();
                 $user->setName("User $u")
                     ->setLastname("Lastname $u")
-                    ->setAdress("Adress $u")
-                    ->setCreditCard("5412597435621548")
+                    ->setAddress("Address $u")
+                    ->setCity("Paris")
+                    ->setZipCode(75000)
                     ->setRegisteredAt(new \DateTimeImmutable('2022-01-01T10:00:00+00:00'))
                     ->setClient($client);
 

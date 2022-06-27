@@ -60,18 +60,17 @@ class User
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank]
     #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
-    private string $adress;
+    private string $address;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank]
-    #[Assert\Length(
-        min: 16,
-        max: 16,
-        minMessage: "Le numéro de votre carte est composé de {{ limit }} chiffres.",
-        maxMessage: "Le numéro de votre carte est composé de {{ limit }} chiffres.",
-    )]
     #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
-    private string $creditCard;
+    private string $city;
+
+    #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    #[Groups(['read:Users', 'post:Users', 'read:User', 'mod:User'])]
+    private int $zipCode;
 
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull]
@@ -110,26 +109,38 @@ class User
         return $this;
     }
 
-    public function getAdress(): ?string
+    public function getAddress(): ?string
     {
-        return $this->adress;
+        return $this->address;
     }
 
-    public function setAdress(string $adress): self
+    public function setAddress(string $address): self
     {
-        $this->adress = $adress;
+        $this->address = $address;
 
         return $this;
     }
 
-    public function getCreditCard(): ?string
+    public function getCity(): ?string
     {
-        return $this->creditCard;
+        return $this->city;
     }
 
-    public function setCreditCard(string $creditCard): self
+    public function setCity(string $city): self
     {
-        $this->creditCard = $creditCard;
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?int
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(int $zipCode): self
+    {
+        $this->zipCode = $zipCode;
 
         return $this;
     }
