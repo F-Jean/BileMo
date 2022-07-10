@@ -1,5 +1,7 @@
 # BileMo
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/fb37f0c078a748bdb11b002eb6c2bfb4)](https://www.codacy.com/gh/F-Jean/BileMo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=F-Jean/BileMo&amp;utm_campaign=Badge_Grade)
+
 ## Contexte
 
 BileMo est une entreprise offrant toute une sélection de téléphones mobiles haut de gamme.
